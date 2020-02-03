@@ -8,7 +8,7 @@ const CAKE_MODE = 'cake' // 蛋糕🎂
 const CONGRATULATION_MODE = 'congratulation' // 恭喜🎉
 
 const SPEED = 2 // 下落速度，单位px
-const DROP_NUMBER = 25 // 一次下落的雨滴个数
+const DROP_NUMBER = 22 // 一次下落的雨滴个数
 const DROP_TIME_RANGE = 5000 // 下落时间点范围，单位毫秒
 const INTERVAL_TIME = 10000 // 下雨时间间隔，单位毫秒
 const BEGIN_YEAR = 2018 // 在一起年份
@@ -68,7 +68,7 @@ class Drop {
       deviceWidth * 0.2 + Math.random() * deviceWidth * 0.6
     ) // 起点在中部60%的位置
     this.startY = -70
-    this.angle = Math.floor(Math.random() * 61) + 60 // 顺时针和 X 轴正方向夹角
+    this.angle = Math.floor(Math.random() * 31) + 75 // 顺时针和 X 轴正方向夹角
     this.speedX = SPEED * Math.cos((this.angle * Math.PI) / 180)
     this.speedY = SPEED * Math.sin((this.angle * Math.PI) / 180)
 
@@ -78,7 +78,6 @@ class Drop {
     this.$el.style.top = this.startY + 'px'
     this.$el.style.left = this.startX + 'px'
     this.$el.append(content)
-    app.appendChild(this.$el)
   }
 
   fall() {
@@ -107,9 +106,18 @@ class Drop {
 function sendGreeting(messageContent, dropContent) {
   new Message(messageContent).show()
   setTimeout(() => {
+    const dropList = []
+    // 一次性加入所有雨滴
+    const fragment = document.createDocumentFragment()
+    for (let i = 0; i < DROP_NUMBER; i++) {
+      dropList.push(new Drop(dropContent))
+      fragment.appendChild(dropList[i].$el)
+    }
+    app.appendChild(fragment)
+
     for (let i = 0; i < DROP_NUMBER; i++) {
       setTimeout(() => {
-        new Drop(dropContent).fall()
+        dropList[i].fall()
       }, Math.round(Math.random() * DROP_TIME_RANGE))
     }
   }, 600)
