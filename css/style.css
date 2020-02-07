@@ -21,27 +21,58 @@ body {
 
 /* 代码 */
 .code {
+  display: -webkit-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
   height: 100%;
   font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', 'Courier New',
     'sans-serif';
   color: #fff;
-  animation: rotate 3s linear 20s;
+  -webkit-animation: rotate 3s linear 20s;
+          animation: rotate 3s linear 20s;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transform-origin: center;
+            transform-origin: center;
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transform-origin: center;
+            transform-origin: center;
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    opacity: 0;
+  }
 }
 
 @keyframes rotate {
   0% {
-    transform-style: preserve-3d;
-    transform-origin: center;
-    transform: rotateY(0);
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transform-origin: center;
+            transform-origin: center;
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
     opacity: 1;
   }
   100% {
-    transform-style: preserve-3d;
-    transform-origin: center;
-    transform: rotateY(180deg);
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transform-origin: center;
+            transform-origin: center;
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
     opacity: 0;
   }
 }
@@ -67,12 +98,27 @@ body {
 
 /* 计数 */
 .counter {
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
   height: 100%;
-  animation: show 3s linear;
+  -webkit-animation: show 3s linear;
+          animation: show 3s linear;
+}
+
+@-webkit-keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes show {
@@ -90,9 +136,12 @@ body {
   width: 80px;
   height: 80px;
   background-color: #f00;
-  filter: drop-shadow(0px 0px 10px rgb(255, 20, 20));
-  transform: rotate(45deg);
-  animation: heart-beat 1s ease-in-out infinite;
+  -webkit-filter: drop-shadow(0px 0px 10px rgb(255, 20, 20));
+          filter: drop-shadow(0px 0px 10px rgb(255, 20, 20));
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-animation: heart-beat 1s ease-in-out infinite;
+          animation: heart-beat 1s ease-in-out infinite;
 }
 
 .heart::before {
@@ -115,17 +164,38 @@ body {
   content: '';
 }
 
-@keyframes heart-beat {
+@-webkit-keyframes heart-beat {
   0% {
-    transform: rotate(45deg) scale(0.85, 0.85);
+    -webkit-transform: rotate(45deg) scale(0.85, 0.85);
+            transform: rotate(45deg) scale(0.85, 0.85);
     opacity: 0.9;
   }
   25% {
-    transform: rotate(45deg) scale(1, 1);
+    -webkit-transform: rotate(45deg) scale(1, 1);
+            transform: rotate(45deg) scale(1, 1);
     opacity: 0.85;
   }
   100% {
-    transform: rotate(45deg) scale(0.8, 0.8);
+    -webkit-transform: rotate(45deg) scale(0.8, 0.8);
+            transform: rotate(45deg) scale(0.8, 0.8);
+    opacity: 1;
+  }
+}
+
+@keyframes heart-beat {
+  0% {
+    -webkit-transform: rotate(45deg) scale(0.85, 0.85);
+            transform: rotate(45deg) scale(0.85, 0.85);
+    opacity: 0.9;
+  }
+  25% {
+    -webkit-transform: rotate(45deg) scale(1, 1);
+            transform: rotate(45deg) scale(1, 1);
+    opacity: 0.85;
+  }
+  100% {
+    -webkit-transform: rotate(45deg) scale(0.8, 0.8);
+            transform: rotate(45deg) scale(0.8, 0.8);
     opacity: 1;
   }
 }
@@ -156,6 +226,12 @@ body {
 /* 消息 */
 .message {
   position: absolute;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
   height: 40px;
   padding: 9px 13px;
   font-size: 14px;
@@ -163,7 +239,8 @@ body {
     \\5fae\8f6f\96c5\9ed1, Arial, sans-serif;
   border-radius: 3px;
   background-color: #fff;
-  animation: remove 1s linear 7s;
+  -webkit-animation: remove 1s linear 7s;
+          animation: remove 1s linear 7s;
 }
 
 .message::before {
@@ -173,6 +250,15 @@ body {
   border: 6px solid transparent;
   border-right-color: #fff;
   content: '';
+}
+
+@-webkit-keyframes remove {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes remove {
