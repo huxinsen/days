@@ -225,15 +225,22 @@ function runDaysCounting() {
 }
 
 function main() {
-  document.getElementById('counter').style.display = 'none'
-  runCodeTyping()
-  setTimeout(() => {
-    document.getElementById('code').style.display = 'none'
+  const codeElement = document.getElementById('code')
+  const counterElement = document.getElementById('counter')
+  counterElement.style.display = 'none'
+  codeElement.addEventListener('webkitAnimationEnd', onRotateEnd)
+  codeElement.addEventListener('mozAnimationEnd', onRotateEnd)
+  codeElement.addEventListener('MSAnimationEnd', onRotateEnd)
+  codeElement.addEventListener('oanimationend', onRotateEnd)
+  codeElement.addEventListener('animationend', onRotateEnd)
+  function onRotateEnd() {
+    codeElement.style.display = 'none'
     setTimeout(() => {
-      document.getElementById('counter').style.display = ''
+      counterElement.style.display = ''
       runDaysCounting()
     }, 1000)
-  }, 22900)
+  }
+  runCodeTyping()
 }
 
 main()
