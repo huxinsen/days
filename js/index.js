@@ -7,7 +7,7 @@ const ROSE_MODE = 'rose' // 玫瑰🌹
 const CAKE_MODE = 'cake' // 蛋糕🎂
 const CONGRATULATION_MODE = 'congratulation' // 恭喜🎉
 
-const SPEED = 2 // 下落速度，单位px
+const SPEED = 3 // 下落速度，单位px
 const DROP_NUMBER = 22 // 一次下落的雨滴个数
 const DROP_TIME_RANGE = 5000 // 下落时间点范围，单位毫秒
 const INTERVAL_TIME = 10000 // 下雨时间间隔，单位毫秒
@@ -81,24 +81,22 @@ class Drop {
   }
 
   fall() {
-    const intervalID = setInterval(() => {
+    requestAnimationFrame(() => {
       this.move()
-    }, 10)
-    this.intervalID = intervalID
+    })
   }
 
   move() {
-    let top = Number(this.$el.style.top.slice(0, -2))
-    let left = Number(this.$el.style.left.slice(0, -2))
-    top += this.speedY
-    left += this.speedX
-    // 落出屏幕
-    if (top > deviceHeight) {
+    const top = Number(this.$el.style.top.slice(0, -2)) + this.speedY
+    const left = Number(this.$el.style.left.slice(0, -2)) + this.speedX
+    if (top < deviceHeight) {
+      this.$el.style.top = top + 'px'
+      this.$el.style.left = left + 'px'
+      this.fall()
+    } else {
+      // 落出屏幕
       this.$el.parentNode.removeChild(this.$el)
-      clearInterval(this.intervalID)
     }
-    this.$el.style.top = top + 'px'
-    this.$el.style.left = left + 'px'
   }
 }
 
