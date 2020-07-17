@@ -69,14 +69,19 @@ class Drop {
     ) // 起点在中部60%的位置
     this.startY = -70
     this.angle = Math.floor(Math.random() * 31) + 75 // 顺时针和 X 轴正方向夹角
-    this.speedX = SPEED * Math.cos((this.angle * Math.PI) / 180)
-    this.speedY = SPEED * Math.sin((this.angle * Math.PI) / 180)
+    this.speedX = Number(
+      (SPEED * Math.cos((this.angle * Math.PI) / 180)).toFixed(1)
+    )
+    this.speedY = Number(
+      (SPEED * Math.sin((this.angle * Math.PI) / 180)).toFixed(1)
+    )
 
     // 添加 DOM 元素
     this.$el = document.createElement('label')
     this.$el.className = 'drop'
     this.$el.style.top = this.startY + 'px'
     this.$el.style.left = this.startX + 'px'
+    this.$el.style.transform = 'translate(0px, 0px)'
     this.$el.append(content)
   }
 
@@ -87,11 +92,13 @@ class Drop {
   }
 
   move() {
-    const top = Number(this.$el.style.top.slice(0, -2)) + this.speedY
-    const left = Number(this.$el.style.left.slice(0, -2)) + this.speedX
-    if (top < deviceHeight) {
-      this.$el.style.top = top + 'px'
-      this.$el.style.left = left + 'px'
+    const position = this.$el.style.transform.match(
+      /translate\((\-?\d+\.?\d*)px, ?(\d+\.?\d*)px\)/
+    )
+    const newX = Number(position[1]) + this.speedX
+    const newY = Number(position[2]) + this.speedY
+    if (newY < deviceHeight + 70) {
+      this.$el.style.transform = `translate(${newX}px, ${newY}px)`
       this.fall()
     } else {
       // 落出屏幕
